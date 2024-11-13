@@ -20,13 +20,13 @@ Opens the file data.bin in binary write mode with trunc flag to clear any existi
 Writes the binary representation of a, b, and c to the file using fhand.write and reinterpret_cast<char*>
 to interpret each variable as a sequence of bytes. Closes the file after writing.
 
-Calls printBitSequenceFromFile(<filename>), which reads each byte from data.bin and prints its binary representation.
-This provides a bit-level view of the file contents. Declares variables d, e, and f to store the values read back from the file.
-Opens data.bin in binary read mode.
+Calls printBitSequenceFromFile(<filename>), which reads each byte from data.bin and prints its binary
+representation.This provides a bit-level view of the file contents. Declares variables d, e, and f to
+store the values read back from the file.Opens data.bin in binary read mode.
 
-Reads each variable back from the file in the same order they were written, storing the results in d, e, and f.
-Closes the file after reading.
-Prints the values of d, e, and f to verify that the original values were written and read correctly from the binary file. */
+Reads each variable back from the file in the same order they were written, storing the results in d, e,
+and f.Closes the file after reading.Prints the values of d, e, and f to verify that the original values
+were written and read correctly from the binary file. */
 int main() {
     std::string filename = "data.bin"; // File name to store binary data
     signed int a = -10000; // Signed integer value
