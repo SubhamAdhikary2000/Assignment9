@@ -1,48 +1,31 @@
 #include <iostream>
 #include <fstream>
-
+#include <vector>
+#include <cstdint>
 using namespace std;
 
-unsigned long long sumBytesInFile(const string& filePath)
-{
-    unsigned long long total = 0;
-    char byte;
+int main() {
+    ifstream inputfile("input.txt", ios::binary);
 
-    ifstream file(filePath, ios::binary);
-    if (!file.is_open())
-    {
-        cerr << "Error opening file: " << filePath << endl;
-        return 0;
+    if (!inputfile) {
+        cerr << "Error opening file." << endl;
+        return 1;
     }
 
-    //cout << "The ASCII values of the characters are: ";
+    uint64_t sum = 0;
+    const size_t bufferSize = 1024;
+    char buffer[bufferSize];
 
-    bool first = true;
-
-    while (file.get(byte))
-    {
-
-        if (!first)
-        {
-            //cout << ", ";
+    // Read and process the file in chunks
+    while (inputfile.read(buffer, bufferSize) || inputfile.gcount() > 0) {
+        size_t bytesRead = inputfile.gcount();
+        for (size_t i = 0; i < bytesRead; ++i) {
+            sum += static_cast<unsigned char>(buffer[i]);
         }
-        //cout << static_cast<int>(static_cast<unsigned char>(byte));
-
-        total += static_cast<unsigned char>(byte);
-
-        first = false;
     }
 
-    //cout << "." << endl;
-    file.close();
+    cout << "Total sum of characters: " << sum << endl;
 
-    return total;
-}
-
-int main()
-{
-    string filePath = "input.txt";
-    unsigned long long totalSum = sumBytesInFile(filePath);
-    cout << "The total sum of all bytes in the file is: " << totalSum << endl;
+    inputfile.close();
     return 0;
 }
